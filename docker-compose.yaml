@@ -24,7 +24,7 @@ services:
         ports:
             - 1433:1433
         volumes:
-            - ./mssql/:/var/opt/mssql/:z
+            - mssqlVol/:/var/opt/mssql/:z
         environment:
             ACCEPT_EULA: 'Y'
             TZ: "America/New_york"
@@ -44,3 +44,11 @@ services:
             ADMINER_DEFAULT_SERVER: mysqlLab
         labels:
             use: labbing
+
+volumes:
+    mssqlVol:
+
+networks:
+    default:
+        external:
+            name: ${network}
