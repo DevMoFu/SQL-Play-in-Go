@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+    mysql:
+        image: mysql:latest
+        container_name: mysqlLab
+        restart: unless-stopped
+        ports:
+            - 3306:3306
+        volumes:
+            - ./mysql/dbinit:/docker-entrypoint-initdb.d:z 
+            - ./mysql/dbdata:/var/lib/mysql:z
+        environment:
+            MYSQL_ROOT_PASSWORD: ${ROOT_PASSWD}
+            #MYSQL_DATABASE: ${MYDB_DB_NAME}
+            #MYSQL_USER: ${MYDB_USER}
+            #MYSQL_PASSWORD: ${MYDB_PASSWD}
+        labels:
+            use: labbing
+    mssql:
+        image: mcr.microsoft.com/mssql/server:2019-CU4-ubuntu-16.04
+        container_name: mssqlLab
+        restart: unless-stopped
+        ports:
+            - 1433:1433
+        volumes:
+            - ./mssql/:/var/opt/mssql/:z
+        environment:
+            ACCEPT_EULA: 'Y'
+            TZ: "America/New_york"
+            SA_PASSWORD: ${ROOT_PASSWD}
+            MSSQL_PID: "Developer"
+            MSSQL_MEMORY_LIMIT_MB: "2048"
+            MSSQL_AGENT_ENABLED: "true"
+        labels:
+            use: labbing
+    adminer:
+        image: adminer:latest
+        container_name: adminerLab
+        restart: unless-stopped
+        ports:
+            - 9009:8080
+        environment:
+            ADMINER_DEFAULT_SERVER: mysqlLab
+        labels:
+            use: labbing

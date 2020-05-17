@@ -13,3 +13,20 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+## https://stackoverflow.com/questions/5533050/gitignore-exclude-folder-but-include-specific-subfolder
+# env
+.env
+
+#contents in presist data
+!mysql/
+
+mysql/*
+!mysql/dbinit/
+!mysql/dbdata/
+
+mysql/dbinit/*
+mysql/dbdata/*
+
+!mssql/
+mssql/*
