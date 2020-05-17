@@ -1,4 +1,4 @@
-# SQL-labbing-with-Go
+# SQL-Play-with-Go
 
 ## Go SQL Lab
 
@@ -21,3 +21,6 @@
 - [x] Start
 - [ ] Have fun
 - [ ] Learn something new
+
+### Replicating set up
+*To be continued*
