@@ -34,6 +34,22 @@ services:
             MSSQL_AGENT_ENABLED: "true"
         labels:
             use: labbing
+        postgres:
+            image: postgres:alpine
+            container_name: postgresLab
+            restart: unless-stopped
+            ports:
+                - 5432:5432
+            volumes:
+                - ./postgres/dbinit:/docker-entrypoint-initdb.d:z 
+                - ./postgres/dbdata:/var/lib/postgresql/data:z
+            environment:
+                POSTGRES_PASSWORD: ${ROOT_PASSWD}
+                #POSTGRES_DB: ${MYDB_DB_NAME}
+                #POSTGRES_USER: ${MYDB_USER}
+                #POSTGRES_PASSWORD: ${MYDB_PASSWD}
+            labels:
+                use: labbing
     adminer:
         image: adminer:latest
         container_name: adminerLab
